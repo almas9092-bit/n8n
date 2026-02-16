@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор досудебных претензий</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Заголовок -->
+        <header class="header">
+            <h1 class="title">Генератор досудебных претензий</h1>
+            <p class="subtitle">Автоматическое создание документов на основе Excel файла</p>
+        </header>
+
+        <!-- Основная форма -->
+        <div class="card">
+            <!-- Зона загрузки файла -->
+            <div class="upload-section">
+                <div class="drop-zone" id="dropZone">
+                    <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                    <p class="drop-text">Перетащите Excel файл сюда</p>
+                    <p class="drop-or">или</p>
+                    <button type="button" class="btn-select" id="selectFileBtn">Выбрать файл</button>
+                    <input type="file" id="fileInput" accept=".xlsx,.xls" hidden>
+                    <p class="file-requirements">Допустимы только .xlsx или .xls файлы (максимум 10 МБ)</p>
+                </div>
+
+                <!-- Имя выбранного файла -->
+                <div class="file-selected" id="fileSelected" style="display: none;">
+                    <div class="file-info">
+                        <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <div class="file-details">
+                            <p class="file-name" id="fileName"></p>
+                            <p class="file-size" id="fileSize"></p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-remove" id="removeFileBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Выбор типа должников -->
+            <div class="claim-type-section">
+                <label class="section-label">Тип должников:</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="claimType" value="physical" checked>
+                        <span class="radio-custom"></span>
+                        <span class="radio-label">Физические лица</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="claimType" value="juridical">
+                        <span class="radio-custom"></span>
+                        <span class="radio-label">Юридические лица</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Кнопка отправки -->
+            <button type="button" class="btn-submit" id="submitBtn" disabled>
+                <span class="btn-text">Сформировать документы</span>
+            </button>
+        </div>
+
+        <!-- Блок статуса -->
+        <div class="status-section" id="statusSection" style="display: none;">
+            <!-- Загрузка -->
+            <div class="status-loading" id="statusLoading" style="display: none;">
+                <div class="spinner"></div>
+                <p class="status-text">Обработка файла, пожалуйста подождите...</p>
+            </div>
+
+            <!-- Ошибка -->
+            <div class="status-error" id="statusError" style="display: none;">
+                <svg class="status-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p class="status-text" id="errorMessage"></p>
+            </div>
+
+            <!-- Успех -->
+            <div class="status-success" id="statusSuccess" style="display: none;">
+                <svg class="status-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p class="status-text" id="successMessage"></p>
+                <a href="#" id="folderLink" class="btn-folder" target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                    </svg>
+                    Открыть папку с документами
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключение скриптов -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
