@@ -13,14 +13,14 @@
 const CONFIG = {
     /**
      * URL webhook из n8n
-     * Формат: https://your-n8n-instance.com/webhook/generate-claims
+     * Формат: https://sak365.app.n8n.cloud/webhook-test/generate-claims
      *
      * Как получить:
      * 1. Откройте ваш workflow в n8n
      * 2. Нажмите на узел "Webhook"
      * 3. Скопируйте "Production URL" или "Test URL"
      */
-    WEBHOOK_URL: "https://your-n8n.com/webhook/generate-claims",
+    WEBHOOK_URL: "https://sak365.app.n8n.cloud/webhook-test/generate-claims",
 
     /**
      * Секретный токен для аутентификации
